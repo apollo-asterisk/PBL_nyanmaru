@@ -21,7 +21,7 @@
 
 ** 使用GPIO**
  
- ・motor　×２
+ ・motor　×２　https://creators-small-room.hatenablog.com/entry/motor-driver
  AIN1 = 8
  AIN2 = 10
  PWMA = 12
@@ -29,7 +29,7 @@
  BIN2 = 24
  PWMB = 26
 
- ・サーボ　×２
+ ・サーボ　×２　https://kurukurupapa.hatenablog.com/entry/2022/09/14/122205
  SERVO_PIN_1 = 13 
  SERVO_PIN_2 = 12 
 
