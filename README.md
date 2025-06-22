@@ -5,11 +5,17 @@
 　 ー＞https://info.picaca.jp/8995参照
 
  ・nyanmaru_camera.py：カメラの動作確認用プログラム
+ 
  ・nyanmaru_camera_face.py：カメラで顔認識をするプログラム
+
  ・nyanmaru_facemotor.py：顔認識とモータ制御を同時に行うプログラム
+ 
  ・nyanmaru_main.py：統合プログラム
+ 
  ・nyanmaru_motor.py：モーター動作確認用プログラム
+ 
  ・nyanmaru_sensor.py：超音波センサ動作確認用プログラム
+ 
  ・nyanmaru_servo.py：サーボ動作確認用プログラム
 
  使用GPIO
