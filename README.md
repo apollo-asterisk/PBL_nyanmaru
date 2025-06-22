@@ -1,8 +1,8 @@
 各プログラム内容
-・01_face_datadet
-・02_face_training.py
-・03_face_recognition.py
-　ー＞https://info.picaca.jp/8995参照
+ ・01_face_datadet
+ ・02_face_training.py
+ ・03_face_recognition.py
+　 ー＞https://info.picaca.jp/8995参照
 
  ・nyanmaru_camera.py：カメラの動作確認用プログラム
  ・nyanmaru_camera_face.py：カメラで顔認識をするプログラム
