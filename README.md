@@ -19,7 +19,6 @@
  
  ・nyanmaru_servo.py：サーボ動作確認用プログラム
 
-** 使用GPIO**
  
  ・motor　×２　https://creators-small-room.hatenablog.com/entry/motor-driver
  
@@ -37,9 +36,9 @@
 
  ・サーボ　×２　https://kurukurupapa.hatenablog.com/entry/2022/09/14/122205
  
- SERVO_PIN_1 = 13 
+ SERVO_PIN_1 = GPIO13 
  
- SERVO_PIN_2 = 12 
+ SERVO_PIN_2 = GPIO12 
 
  ・超音波センサ
  
