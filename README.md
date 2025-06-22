@@ -1,4 +1,5 @@
-各プログラム内容
+**各プログラム内容**
+
  ・01_face_datadet
  ・02_face_training.py
  ・03_face_recognition.py
@@ -18,7 +19,8 @@
  
  ・nyanmaru_servo.py：サーボ動作確認用プログラム
 
- 使用GPIO
+** 使用GPIO**
+ 
  ・motor　×２
  AIN1 = 8
  AIN2 = 10
