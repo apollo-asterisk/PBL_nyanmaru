@@ -28,17 +28,17 @@ p_b = GPIO.PWM(PWMB, 100)
 p_a.start(100) #
 p_b.start(100) #速度を変えるとこ
 
-def func_brake():
+def func_forward():
     GPIO.output(AIN1, GPIO.HIGH)
-    GPIO.output(AIN2, GPIO.HIGH)
-    GPIO.output(BIN1, GPIO.HIGH)
+    GPIO.output(AIN2, GPIO.LOW)
+    GPIO.output(BIN1, GPIO.LOW)
     GPIO.output(BIN2, GPIO.HIGH)
 
 def func_right():
     GPIO.output(AIN1, GPIO.LOW)
     GPIO.output(AIN2, GPIO.HIGH)
-    GPIO.output(BIN1, GPIO.HIGH)
-    GPIO.output(BIN2, GPIO.LOW)
+    GPIO.output(BIN1, GPIO.LOW)
+    GPIO.output(BIN2, GPIO.HIGH)
 
 # --- 顔認識セットアップ ---
 recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -60,7 +60,7 @@ picam2.configure(preview_config)
 picam2.start()
 
 try:
-    motor_state = None  # "right"または"brake"
+    motor_state = None  # "right"または"forward"
     while True:
         frame = picam2.capture_array()
         img = cv2.flip(frame, 1)
@@ -75,9 +75,9 @@ try:
 
         if len(faces) > 0:
             # 顔が見つかったら停止
-            if motor_state != "brake":
-                func_brake()
-                motor_state = "brake"
+            if motor_state != "forward":
+                func_forward()
+                motor_state = "forward"
         else:
             # 顔がなければ回転
             if motor_state != "right":
