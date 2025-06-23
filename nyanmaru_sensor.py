@@ -1,49 +1,39 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import RPi.GPIO as GPIO
 import time
+import sys
 
-# HIGH or LOWの時計測
-def pulseIn(PIN, start=1, end=0):
-    if start==0: end = 1
-    t_start = 0
-    t_end = 0
-    # ECHO_PINがHIGHである時間を計測
-    while GPIO.input(PIN) == end:
-        t_start = time.time()
-        
-    while GPIO.input(PIN) == start:
-        t_end = time.time()
-    return t_end - t_start
+trig_pin = 27                           # GPIO 15
+echo_pin = 18                           # GPIO 14
+speed_of_sound = 34370                  # 20℃での音速(cm/s)
 
-# 距離計測
-def calc_distance(TRIG_PIN, ECHO_PIN, num, v=34000): 
-    for i in range(num):
-        # TRIGピンを0.3[s]だけLOW
-        GPIO.output(TRIG_PIN, GPIO.LOW)
-        time.sleep(0.3)
-        # TRIGピンを0.00001[s]だけ出力(超音波発射)        
-        GPIO.output(TRIG_PIN, True)
-        time.sleep(0.00001)
-        GPIO.output(TRIG_PIN, False)
-        # HIGHの時間計測
-        t = pulseIn(ECHO_PIN)
-        # 距離[cm] = 音速[cm/s] * 時間[s]/2
-        distance = v * t/2
-        print(distance, "cm")
-    # ピン設定解除
-    GPIO.cleanup()
+GPIO.setmode(GPIO.BCM)                  # GPIOをBCMモードで使用
+GPIO.setwarnings(False)                 # BPIO警告無効化
+GPIO.setup(trig_pin, GPIO.OUT)          # Trigピン出力モード設定
+GPIO.setup(echo_pin, GPIO.IN)           # Echoピン入力モード設定
 
-    
-# TRIGとECHOのGPIO番号   
-TRIG_PIN = 14
-ECHO_PIN = 15
-# ピン番号をGPIOで指定
-GPIO.setmode(GPIO.BCM)
-# TRIG_PINを出力, ECHO_PINを入力
-GPIO.setup(TRIG_PIN,GPIO.OUT)
-GPIO.setup(ECHO_PIN,GPIO.IN)
-GPIO.setwarnings(False)
+def get_distance(): 
+    #Trigピンを10μsだけHIGHにして超音波の発信開始
+    GPIO.output(trig_pin, GPIO.HIGH)
+    time.sleep(0.000010)
+    GPIO.output(trig_pin, GPIO.LOW)
 
-# 距離計測(TRIGピン番号, ECHO_PIN番号, 計測回数, 音速[cm/s])
-calc_distance(TRIG_PIN, ECHO_PIN, 10, 34000)
+    while not GPIO.input(echo_pin):
+        pass
+    t1 = time.time() # 超音波発信時刻（EchoピンがHIGHになった時刻）格納
+
+    while GPIO.input(echo_pin):
+        pass
+    t2 = time.time() # 超音波受信時刻（EchoピンがLOWになった時刻）格納
+
+    return (t2 - t1) * speed_of_sound / 2 # 時間差から対象物までの距離計算
+
+
+while True:# 繰り返し処理
+    try:
+        distance = '{:.1f}'.format(get_distance())  # 小数点1までまるめ
+        print("Distance: " + distance + "cm")       # 表示
+        time.sleep(1)                               # 1秒まつ
+
+    except KeyboardInterrupt:                       # Ctrl + C押されたたら
+        GPIO.cleanup()                              # GPIOお片付け
+        sys.exit()                                  # プログラム終了
