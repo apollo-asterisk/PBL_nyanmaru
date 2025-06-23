@@ -22,9 +22,9 @@
  
  ・motor　×２　https://creators-small-room.hatenablog.com/entry/motor-driver
  
- AIN1 = 8
+ AIN1 = 38
  
- AIN2 = 10
+ AIN2 = 40
  
  PWMA = 12
  
@@ -40,10 +40,10 @@
  
  SERVO_PIN_2 = GPIO12 
 
- ・超音波センサ
+ ・超音波センサ  https://raspi-school.com/ultrasonic-sensor/
  
- TRIG_PIN = 14
+ TRIG_PIN = 8 (GIPO14)
  
- ECHO_PIN = 15
+ ECHO_PIN = 10(GPIO15)
 
  
