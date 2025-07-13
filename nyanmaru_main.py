@@ -130,10 +130,10 @@ try:
             if len(faces) > 0:
                 distance = get_distance()
                 print(f"Distance: {distance:.1f}cm")
-                if 0 < distance < 15:
+                if 0 < distance < 25:
                     if motor_state != "stop":
                         func_stop()
-                        print("15cm未満：停止して耳を動かす")
+                        print("25cm未満：停止して耳を動かす")
                         motor_state = "stop"
                         move_ears()
                 else:
